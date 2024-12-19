@@ -1,0 +1,26 @@
+#include <stdio.h>
+int main(){
+int bucks;
+    printf("Enter size:");
+    scanf("%d",&bucks);
+    int f;
+    printf("Enter no.of frames:");
+    scanf("%d",&f);
+    int fs[f];
+    for(int i=0;i<f;i++){
+        printf("Enter size of %d frame: ",i+1);
+        scanf("%d",&fs[i]);
+    }
+    int c=1,x=bucks,i=0;
+    while(i<f){
+        if(x>=fs[i]){ 
+            printf("frames %d sent in %d sec\n",i+1,c);
+            x=x-fs[i];
+            i++;
+        } 
+        else{
+            x=bucks;
+            c++;
+        }
+    }
+}

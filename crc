@@ -1,0 +1,24 @@
+#include<stdio.h>
+void main() {
+    char data[100], gen[100], temp[100];
+    int n, k;
+    printf("Enter data length: ");
+    scanf("%d", &n);
+    printf("Enter generator length: ");
+    scanf("%d", &k);
+    printf("Enter data: ");
+    scanf("%s", data);
+    printf("Enter generator: ");
+    scanf("%s", gen);
+    for (int i = 0; i < k - 1; i++) data[n + i] = '0';
+    for (int i = 0; i < n + k - 1; i++) temp[i] = data[i];
+    for (int i = 0; i < n; i++) {
+        if (temp[i] == '1')
+            for (int j = 0; j < k; j++)
+                temp[i + j] = (temp[i + j] == gen[j]) ? '0' : '1';
+    }
+    for (int i = 0; i < k - 1; i++) data[n + i] = temp[n + i];
+    printf("CRC: ");
+    for (int i = n; i < n + k - 1; i++) printf("%c", temp[i]);
+    printf("\nCodeword: %s", data);
+}

@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <string.h>
+void main() {
+    char frames[100],ack;
+    int n, nf, temp;
+    printf("Enter frames to be transmitted: ");
+    scanf("%s", frames);
+    printf("Enter sender's window size: ");
+    scanf("%d", &n);
+    nf = strlen(frames);
+    for (int i = 0; i < n; i++) {
+        printf("Frame transmitted: %c\n", frames[i]);
+    }
+    int j = n, k = 0;
+    while (k < nf) {
+        printf("Acknowledge received for %c (Yes/No): ", frames[k]);
+        scanf(" %c", &ack);
+        if (ack == 'y') {
+            if (j < nf) {
+                printf("Frame transmitted: %c\n", frames[j]);
+                j++;
+            }
+            k++;
+        } else if (ack== 'n') {
+            temp = k;
+            for (int p = 0; p < n; p ++) {
+                if (k < nf) {
+                    printf("Frame retransmitted: %c\n", frames[k]);
+                    k++;
+                }
+            }
+            k=temp;
+        }
+        
+    }
+}

@@ -1,0 +1,26 @@
+#include<stdio.h>
+#include<string.h>
+void main() {
+    char s[100], del, esc, r[200];
+    int x = 1;
+    printf("Enter message: ");
+    scanf("%s", s);
+    printf("Enter delimiter: ");
+    scanf(" %c", &del);
+    printf("Enter escape character: ");
+    scanf(" %c", &esc);
+    r[0] = del;
+    for (int i = 0; s[i] != '\0'; i++) {
+        if (s[i] == del || s[i] == esc) 
+        r[x++] = esc; 
+        r[x++] = s[i]; 
+    }
+    r[x++] = del;
+    r[x] = '\0'; 
+    printf("Stuffed string: %s\n", r);
+    printf("Destuffed string: ");
+    for (int i = 1; i < x - 1; i++) {
+        if (r[i] == esc) i++; 
+        printf("%c", r[i]);
+    } 
+}

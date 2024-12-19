@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<string.h>
+void main() {
+    char s[100], del[10], res[200];
+    int j = 0, c = 0;
+    printf("Enter message: ");
+    scanf("%s", s);
+    printf("Enter delimiter: ");
+    scanf("%s", del);
+    strcpy(res, del);
+    for (int i = 0; s[i]; i++) {
+        res[strlen(del) + j++] = s[i];
+        c = (s[i] == '1') ? c + 1 : 0;
+        if (c == 5) res[strlen(del) + j++] = '0', c = 0;
+    }
+    strcat(res, del);
+    printf("Stuffed string: %s\n", res);
+    printf("Destuffed string: ");
+    c = 0;
+    for (int i = strlen(del); i < strlen(res) - strlen(del); i++) {
+        printf("%c", res[i]);
+        c = (res[i] == '1') ? c + 1 : 0;
+        if (c == 5) i++;
+    }
+}

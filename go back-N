@@ -1,36 +1,59 @@
 #include <stdio.h>
 #include <string.h>
 void main() {
-    char frames[100],ack;
-    int n, nf, temp;
-    printf("Enter frames to be transmitted: ");
-    scanf("%s", frames);
-    printf("Enter sender's window size: ");
+    int n, f;
+    int ar[100];
+    char ack[100];
+    int trans[100];
+    printf("Enter the sender window size: ");
     scanf("%d", &n);
-    nf = strlen(frames);
-    for (int i = 0; i < n; i++) {
-        printf("Frame transmitted: %c\n", frames[i]);
+    printf("Enter number of frames: ");
+    scanf("%d", &f);
+    printf("The frames are:\n");
+    for (int i = 0; i < f; i++) {
+        ar[i] = i;
+        printf("%d ", ar[i]);
     }
-    int j = n, k = 0;
-    while (k < nf) {
-        printf("Acknowledge received for %c (Yes/No): ", frames[k]);
-        scanf(" %c", &ack);
-        if (ack == 'y') {
-            if (j < nf) {
-                printf("Frame transmitted: %c\n", frames[j]);
-                j++;
+    printf("\n");
+    int x = 0, t = 0;
+    printf("The initial frames to be transmitted:\n");
+    for (int i = 0; i < n && i < f; i++) {
+        trans[t] = i;
+        printf("%d ", trans[t]);
+        t++;
+    }
+    printf("\n");
+    while (x < f) {
+        printf("Give the acknowledgment for frame %d (Y/N): ", x);
+        scanf(" %c", &ack[x]);
+        if (ack[x] == 'Y' || ack[x] == 'y') {
+            if (t < f) {
+                trans[t] = t;
+                t++;
             }
-            k++;
-        } else if (ack== 'n') {
-            temp = k;
-            for (int p = 0; p < n; p ++) {
-                if (k < nf) {
-                    printf("Frame retransmitted: %c\n", frames[k]);
-                    k++;
-                }
+            x++;
+        } else {
+            printf("Go back to frame %d\n", x);
+            printf("The frames to be retransmitted:\n");
+            t = x;
+            for (int i = 0; i < n && t < f; i++) {
+                trans[t] = t;
+                printf("%d ", trans[t]);
+                t++;
             }
-            k=temp;
+            printf("\n");
         }
-        
     }
+    printf("Transmitted Array: ");
+    for (int i = 0; i < f; i++) {
+        printf("%d ", trans[i]);
+    }
+    printf("\n");
+
+    printf("Acknowledgment Array: ");
+    for (int i = 0; i < f; i++) {
+        printf("%c ", ack[i] == '\0' ? 'N' : ack[i]);
+    }
+    printf("\n");
+    printf("Transfer Successful\n");
 }
